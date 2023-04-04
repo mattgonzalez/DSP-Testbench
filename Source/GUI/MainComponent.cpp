@@ -11,6 +11,7 @@
 #include "MainComponent.h"
 #include "../Main.h"
 #include "../Processing/ProcessorExamples.h"
+#include "../Processing/ParametricEQ.h"
 
 MainContentComponent::MainContentComponent (AudioDeviceManager& deviceManager)
     : AudioAppComponent (deviceManager)
@@ -23,7 +24,7 @@ MainContentComponent::MainContentComponent (AudioDeviceManager& deviceManager)
 // =================================================================================================================================
 // +++      Here is where to instantiate the processors being tested (it's OK to leave one as nullptr if you don't need it)      +++
 // =================================================================================================================================
-    procComponentA = std::make_unique<ProcessorComponent> ("A", new LpfExample());
+    procComponentA = std::make_unique<ProcessorComponent> ("A", new ParametricEQ());
     procComponentB = std::make_unique<ProcessorComponent> ("B", new ThruExample());
 // =================================================================================================================================
 

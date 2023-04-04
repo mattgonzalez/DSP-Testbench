@@ -16,6 +16,7 @@ ProcessorHarness::ProcessorHarness (const int numberOfControlValues)
     for (auto i = 0; i < numberOfControlValues; ++i)
         controlValues.emplace_back (0.0f);
 }
+
 void ProcessorHarness::prepareHarness (const dsp::ProcessSpec& spec)
 {
     const auto numChannelsAreDifferent = currentSpec.numChannels != spec.numChannels;

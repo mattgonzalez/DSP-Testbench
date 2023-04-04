@@ -27,6 +27,7 @@ public:
     String getProcessorName() override;
     String getControlName (const int index) override;
     double getDefaultControlValue (const int index) override;
+    juce::Range<double> getControlRange(const int index) override;
 
 private:
     void init();
@@ -58,4 +59,5 @@ public:
     String getProcessorName() override;
     String getControlName (const int index) override;
     double getDefaultControlValue (const int index) override;
+    juce::Range<double> getControlRange(const int index) override;
 };

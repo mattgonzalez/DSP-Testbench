@@ -219,29 +219,31 @@ ProcessorComponent::ControlComponent::ControlComponent (const int index, Process
 {
     auto controlName = "Control " + String (index + 1);
     auto defaultControlValue = 0.0;
+    juce::Range<double> range{ 0.0, 1.0 };
     if (processor)
     {
         controlName = processor->getControlName (controlIndex);
         defaultControlValue = processor->getDefaultControlValue (controlIndex);
+        range = processor->getControlRange (controlIndex);
     }
-    lblControl.setText (controlName, dontSendNotification);
-    lblControl.setFont (Font (GUI_SIZE_F(0.5), Font::plain).withTypefaceStyle ("Regular"));
-    lblControl.setJustificationType (Justification::centredLeft);
-    lblControl.setEditable (false, false, false);
-    lblControl.setColour (TextEditor::textColourId, Colours::black);
-    lblControl.setColour (TextEditor::backgroundColourId, Colours::transparentBlack);
-    addAndMakeVisible (lblControl);
+    controlLabel.setText (controlName, dontSendNotification);
+    controlLabel.setFont (Font (GUI_SIZE_F(0.5), Font::plain).withTypefaceStyle ("Regular"));
+    controlLabel.setJustificationType (Justification::centredLeft);
+    controlLabel.setEditable (false, false, false);
+    controlLabel.setColour (TextEditor::textColourId, Colours::black);
+    controlLabel.setColour (TextEditor::backgroundColourId, Colours::transparentBlack);
+    addAndMakeVisible (controlLabel);
 
-    sldControl.setRange (0, 1, 0.001);
-    sldControl.setDoubleClickReturnValue (true, defaultControlValue);
-    sldControl.setSliderStyle (Slider::LinearHorizontal);
-    sldControl.setTextBoxStyle (Slider::TextBoxRight, false, GUI_SIZE_I(2.5), GUI_SIZE_I(0.7));
-    sldControl.onValueChange = [this]
+    controlSlider.setRange (range.getStart(), range.getEnd(), 0.001);
+    controlSlider.setDoubleClickReturnValue (true, defaultControlValue);
+    controlSlider.setSliderStyle (Slider::LinearHorizontal);
+    controlSlider.setTextBoxStyle (Slider::TextBoxRight, false, GUI_SIZE_I(2.5), GUI_SIZE_I(0.7));
+    controlSlider.onValueChange = [this]
     {
-        processor->setControlValue (controlIndex, sldControl.getValue());
+        processor->setControlValue (controlIndex, controlSlider.getValue());
     };
-    sldControl.setValue (defaultControlValue, sendNotificationSync);
-    addAndMakeVisible (sldControl);
+    controlSlider.setValue (defaultControlValue, sendNotificationSync);
+    addAndMakeVisible (controlSlider);
 }
 void ProcessorComponent::ControlComponent::paint (Graphics&)
 { }
@@ -259,7 +261,7 @@ void ProcessorComponent::ControlComponent::resized()
 
     grid.autoFlow = Grid::AutoFlow::row;
 
-    grid.items.addArray({ GridItem (lblControl), GridItem (sldControl) });
+    grid.items.addArray({ GridItem (controlLabel), GridItem (controlSlider) });
 
     grid.performLayout (getLocalBounds());
 }

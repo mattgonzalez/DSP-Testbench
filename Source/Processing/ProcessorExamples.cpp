@@ -68,6 +68,12 @@ double LpfExample::getDefaultControlValue (const int index)
         default: return 0.0;
     }
 }
+
+juce::Range<double> LpfExample::getControlRange(const int /*index*/)
+{
+    return { 0.0, 1.0 };
+}
+
 void LpfExample::init()
 {
     a0 = 1.0;
@@ -92,7 +98,6 @@ void LpfExample::calculateCoefficients()
     b1 = 2.0 * (kk - 1.0) * norm;
     b2 = (1.0 - k + kk) * norm;
 }
-
 
 // ==============================================================================
 
@@ -120,4 +125,9 @@ String ThruExample::getControlName (const int /*index*/)
 double ThruExample::getDefaultControlValue (const int /*index*/)
 {
     return 0.0;
+}
+
+juce::Range<double> ThruExample::getControlRange(const int /*index*/)
+{
+    return { 0.0, 1.0 };
 }

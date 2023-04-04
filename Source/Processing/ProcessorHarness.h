@@ -43,6 +43,8 @@ public:
      *  NOTE - the controls are floats in the range 0..1.
      */
     virtual double getDefaultControlValue (const int index) = 0;
+
+    virtual juce::Range<double> getControlRange (const int index) = 0;
     
     // =================================================================================================================================
 

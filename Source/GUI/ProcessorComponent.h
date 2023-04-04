@@ -49,10 +49,10 @@ private:
         double getCurrentControlValue() const;
 
     private:
-        int controlIndex;
+        int const controlIndex;
         ProcessorHarness* processor;
-        Label lblControl {};
-        Slider sldControl {};
+        Label controlLabel {};
+        Slider controlSlider {};
         Atomic<double> currentControlValue;
     };
 
